@@ -13,4 +13,9 @@ resource "aws_instance" "tldhybqat01vcl" {
     "SSH"
   ]
 
+  tags = {
+    client = "target"
+    notify = "steven.swor@ecetera.com.au"
+  }
+
 }
