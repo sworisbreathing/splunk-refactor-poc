@@ -1,0 +1,8 @@
+---
+- hosts: splunk_forwarders
+  roles:
+    - splunk_forwarder
+
+- hosts: splunk_servers
+  roles:
+    - splunk_server
