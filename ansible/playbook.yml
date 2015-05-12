@@ -6,3 +6,4 @@
 - hosts: splunk_servers
   roles:
     - splunk_server
+    - splunk_deployment_server
