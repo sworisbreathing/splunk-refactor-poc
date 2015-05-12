@@ -34,5 +34,3 @@
 - name: "Start Splunk service"
   service: name=splunk state=started
   sudo: yes
-  sudo_user: "{{ splunk_server.user.name }}"
-
