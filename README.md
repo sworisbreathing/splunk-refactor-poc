@@ -56,3 +56,13 @@ To spin up:
 To tear down:
 
 `terraform destroy`
+
+Provisioning with Ansible
+-------------------------
+
+```
+    terraform apply
+    terraform output ansible_inventory_rendered > ansible/ansible.inventory
+    cd ansible
+    ansible --private-key=<path_to_private_key> --check playbook.yml
+```
