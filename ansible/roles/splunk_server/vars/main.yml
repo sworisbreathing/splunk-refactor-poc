@@ -1,8 +1,8 @@
 ---
 splunk_server:
-  url: http://download.splunk.com/releases/5.0.2/splunk/linux/splunk-5.0.2-149561-Linux-x86_64.tgz
-  downloaded_path: /tmp/splunk-5.0.2-149561-Linux-x86_64.tgz
-  expected_version: Splunk 5.0.2 (build 149561)
+  url: http://download.splunk.com/releases/6.2.3/splunk/linux/splunk-6.2.3-264376-Linux-x86_64.tgz
+  downloaded_path: /tmp/splunk-6.2.3-264376-Linux-x86_64.tgz
+  expected_version: Splunk 6.2.3 (build 264376)
   install_dir: /app/splunk
   parent_dir: /app
 
