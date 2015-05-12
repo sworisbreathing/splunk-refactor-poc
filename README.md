@@ -45,6 +45,8 @@ To get started:
 ```
     TF_VAR_access_key="<your aws access key>"
     TF_VAR_secret_key="<your aws secret key>"
+    TF_VAR_key_name="<name of the SSH key in AWS>"
+    TF_VAR_key_path="<path to the SSH private key file>"
 ```
 
 To spin up:
