@@ -33,6 +33,15 @@
     state=file
     mode=755
 
+- name: "Configure deployment client"
+  sudo: yes
+  template: src=deploymentclient.conf
+    dest={{ splunk_forwarder.install_dir }}/etc/system/local
+    owner={{ splunk_forwarder.user.name }}
+    group={{ splunk_forwarder.group.name }}
+    mode=0644
+  notify: restart splunk forwarder
+
 - name: "Start Splunk Forwarder service"
   service: name=splunk state=started
   sudo: yes

@@ -18,3 +18,5 @@ splunk_forwarder:
     comment: Splunk Service
     group: splunk
 
+  deployment_server:
+    port: 8089
