@@ -16,6 +16,8 @@ resource "aws_instance" "tldhybqat01vcl" {
   tags = {
     client = "target"
     notify = "steven.swor@ecetera.com.au"
+    Name = "tldhybqat01vcl"
+    "auto:stop" = "*/15 * * * *"
   }
 
 }
