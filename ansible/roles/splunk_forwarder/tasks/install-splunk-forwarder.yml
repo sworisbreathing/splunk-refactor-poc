@@ -1,0 +1,46 @@
+---
+- name: "Download Splunk Forwarder package"
+  get_url: url={{ splunk_forwarder.url }} dest={{ splunk_forwarder.downloaded_path }}
+
+- name: "Ensure Splunk Forwarder folder exists"
+  sudo: yes
+  file: path={{ splunk_forwarder.parent_dir }}
+    state=directory
+
+- name: "Unpack Splunk Forwarder"
+  command: "tar --directory {{ splunk_forwarder.parent_dir }} -xzf {{ splunk_forwarder.downloaded_path }}"
+  sudo: yes
+
+- name: "Setup required folders"
+  sudo: yes
+  file: path={{ splunk_forwarder.install_dir }}/{{ item }}
+    state=directory
+    owner={{ splunk_forwarder.user.name }}
+    group={{ splunk_forwarder.group.name }}
+  with_items:
+    - "var/log/introspection"
+    - "var/log/splunk"
+
+- name: "Fix Splunk Forwarder folder permissions"
+  sudo: yes
+  file: path={{ splunk_forwarder.install_dir }}
+    state=directory
+    recurse=yes
+    owner={{ splunk_forwarder.user.name }}
+    group={{ splunk_forwarder.group.name }}
+
+- name: "Ensure Splunk Forwarder runs as a service"
+  command: "{{ splunk_forwarder.install_dir }}/bin/splunk enable boot-start --answer-yes -user {{ splunk_forwarder.user.name }}"
+  sudo: yes
+
+- name: "Fix Splunk Forwarder folder permissions"
+  sudo: yes
+  file: path={{ splunk_forwarder.install_dir }}
+    state=directory
+    recurse=yes
+    owner={{ splunk_forwarder.user.name }}
+    group={{ splunk_forwarder.group.name }}
+
+- name: "Delete downloaded splunk forwarder package"
+  file: path={{ splunk_forwarder.downloaded_path }} state=absent
+
