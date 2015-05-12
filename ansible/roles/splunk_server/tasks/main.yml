@@ -1,0 +1,38 @@
+---
+- name: "Ensure Splunk group exists"
+  sudo: yes
+  group: system=true
+    state=present
+    name={{ splunk_server.group.name }}
+    gid={{ splunk_server.group.gid }}
+
+- name: "Ensure Splunk user exists"
+  sudo: yes
+  user: system=true
+    state=present
+    name={{ splunk_server.user.name }}
+    uid={{ splunk_server.user.uid }}
+    shell={{ splunk_server.user.shell }}
+    group={{ splunk_server.user.group }}
+    comment="{{ splunk_server.user.comment }}"
+
+- name: "Get current splunk version"
+  shell: "if [ -e {{ splunk_server.install_dir }}/bin/splunk ] ; then {{ splunk_server.install_dir }}/bin/splunk version ; fi"
+  register: splunk_server_installed_version
+  changed_when: false
+
+# Downloads and installs the splunk server if the correct version is not installed
+- include: install-splunk-server.yml
+  when: (splunk_server_installed_version|failed) or (splunk_server_installed_version.stdout != splunk_server.expected_version)
+
+- name: "Ensure users can start splunk service"
+  sudo: yes
+  file: path=/etc/init.d/splunk
+    state=file
+    mode=755
+
+- name: "Start Splunk service"
+  service: name=splunk state=started
+  sudo: yes
+  sudo_user: "{{ splunk_server.user.name }}"
+

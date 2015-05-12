@@ -1,0 +1,19 @@
+---
+splunk_server:
+  url: http://download.splunk.com/releases/5.0.2/splunk/linux/splunk-5.0.2-149561-Linux-x86_64.tgz
+  downloaded_path: /tmp/splunk-5.0.2-149561-Linux-x86_64.tgz
+  expected_version: Splunk 5.0.2 (build 149561)
+  install_dir: /app/splunk
+  parent_dir: /app
+
+  group:
+    name: splunk
+    gid: 396
+
+  user:
+    name: splunk
+    uid: 396
+    shell: /bin/bash
+    comment: Splunk Service
+    group: splunk
+
