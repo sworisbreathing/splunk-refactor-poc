@@ -3,7 +3,7 @@ splunk_forwarder:
   url: http://download.splunk.com/releases/6.2.2/universalforwarder/linux/splunkforwarder-6.2.2-255606-Linux-x86_64.tgz
   downloaded_path: /tmp/splunkforwarder-6.2.2-255606-Linux-x86_64.tgz
 
-  expected_version: Splunk Universal Forwarder 6.2.2 (build 213098)
+  expected_version: Splunk Universal Forwarder 6.2.2 (build 255606)
   install_dir: /app/splunkforwarder
   parent_dir: /app
 
