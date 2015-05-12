@@ -1,4 +1,13 @@
 ---
+- name: configure deployment server
+  sudo: yes
+  template: src=serverclass.conf
+    dest={{ splunk_server.install_dir }}/etc/system/local/serverclass.conf
+    owner={{ splunk_server.user.name }}
+    group={{ splunk_server.group.name }}
+    mode=0644
+  notify: restart splunk
+
 - name: Ensure git repo dir exists
   sudo: yes
   file: path={{ splunk_server.app_repo.parent_path }}
