@@ -1,0 +1,38 @@
+---
+- name: "Ensure Splunk Forwarder group exists"
+  sudo: yes
+  group: system=true
+    state=present
+    name={{ splunk_forwarder.group.name }}
+    gid={{ splunk_forwarder.group.gid }}
+
+- name: "Ensure Splunk Forwarder user exists"
+  sudo: yes
+  user: system=true
+    state=present
+    name={{ splunk_forwarder.user.name }}
+    uid={{ splunk_forwarder.user.uid }}
+    shell={{ splunk_forwarder.user.shell }}
+    group={{ splunk_forwarder.user.group }}
+    comment="{{ splunk_forwarder.user.comment }}"
+
+- name: "Get current splunk forwarder version"
+  shell: "if [ -e {{ splunk_forwarder.install_dir }}/bin/splunk ] ; then {{ splunk_forwarder.install_dir }}/bin/splunk version ; fi"
+  sudo: yes
+  sudo_user: "{{ splunk_forwarder.user.name }}"
+  register: splunk_forwarder_installed_version
+  changed_when: false
+
+# Downloads and installs the splunk forwarder if the correct version is not installed
+- include: install-splunk-forwarder.yml
+  when: (splunk_forwarder_installed_version|failed) or (splunk_forwarder_installed_version.stdout != splunk_forwarder.expected_version)
+
+- name: "Ensure users can start splunk forwarder service"
+  sudo: yes
+  file: path=/etc/init.d/splunk
+    state=file
+    mode=755
+
+- name: "Start Splunk Forwarder service"
+  service: name=splunk state=started
+  sudo: yes
