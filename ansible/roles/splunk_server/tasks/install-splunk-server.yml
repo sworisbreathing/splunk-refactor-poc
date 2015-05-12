@@ -1,0 +1,46 @@
+---
+- name: "Download Splunk package"
+  get_url: url={{ splunk_server.url }} dest={{ splunk_server.downloaded_path }}
+
+- name: "Ensure Splunk folder exists"
+  sudo: yes
+  file: path={{ splunk_server.parent_dir }}
+    state=directory
+
+- name: "Unpack Splunk"
+  command: "tar --directory {{ splunk_server.parent_dir }} -xzf {{ splunk_server.downloaded_path }}"
+  sudo: yes
+
+- name: "Setup required folders"
+  sudo: yes
+  file: path={{ splunk_server.install_dir }}/{{ item }}
+    state=directory
+    owner={{ splunk_server.user.name }}
+    group={{ splunk_server.group.name }}
+  with_items:
+    - "var/log/introspection"
+    - "var/log/splunk"
+
+- name: "Fix Splunk folder permissions"
+  sudo: yes
+  file: path={{ splunk_server.install_dir }}
+    state=directory
+    recurse=yes
+    owner={{ splunk_server.user.name }}
+    group={{ splunk_server.group.name }}
+
+- name: "Ensure Splunk runs as a service"
+  command: "{{ splunk_server.install_dir }}/bin/splunk enable boot-start --accept-license --answer-yes -user {{ splunk_server.user.name }}"
+  sudo: yes
+
+- name: "Fix Splunk folder permissions"
+  sudo: yes
+  file: path={{ splunk_server.install_dir }}
+    state=directory
+    recurse=yes
+    owner={{ splunk_server.user.name }}
+    group={{ splunk_server.group.name }}
+
+- name: "Delete downloaded splunk package"
+  file: path={{ splunk_server.downloaded_path }} state=absent
+

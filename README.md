@@ -60,9 +60,15 @@ To tear down:
 Provisioning with Ansible
 -------------------------
 
+replace the `splunk_server.git_repo.url`
+in `ansible/roles/splunk_deployment_server/vars/main.yml`
+with the real one.
+
+Then run:
+
 ```
     terraform apply
     terraform output ansible_inventory_rendered > ansible/ansible.inventory
     cd ansible
-    ansible --private-key=<path_to_private_key> --check playbook.yml
+    ansible-playbook --private-key=<path_to_private_key> playbook.yml
 ```

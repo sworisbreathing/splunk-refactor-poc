@@ -1,0 +1,29 @@
+---
+- name: configure deployment server
+  sudo: yes
+  template: src=serverclass.conf
+    dest={{ splunk_server.install_dir }}/etc/system/local/serverclass.conf
+    owner={{ splunk_server.user.name }}
+    group={{ splunk_server.group.name }}
+    mode=0644
+  notify: restart splunk
+
+- name: Ensure git repo dir exists
+  sudo: yes
+  file: path={{ splunk_server.app_repo.parent_path }}
+    state=directory
+    owner={{ splunk_server.user.name }}
+    group={{ splunk_server.group.name }}
+    mode="0755"
+
+- name: Install git
+  sudo: yes
+  apt: name=git state=present
+
+- name: Pull down Splunk apps
+  sudo: yes
+  sudo_user: "{{ splunk_server.user.name }}"
+  git: repo={{ splunk_server.app_repo.url }}
+    version={{ splunk_server.app_repo.branch }}
+    dest={{ splunk_server.app_repo.install_path }}
+  notify: restart splunk
