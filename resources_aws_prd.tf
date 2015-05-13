@@ -1,5 +1,5 @@
 
-resource "aws_instance" "tldhybqat01vth" {
+resource "aws_instance" "tldhybprd01pth" {
   instance_type = "t1.micro"
   ami = "${lookup(var.aws_amis, var.aws_region)}"
   key_name = "${var.TF_VAR_key_name}"
@@ -16,7 +16,7 @@ resource "aws_instance" "tldhybqat01vth" {
   tags = {
     client = "target"
     notify = "steven.swor@ecetera.com.au"
-    Name = "tldhybqat01vth"
+    Name = "tldhybprd01pth"
     "auto:stop" = "*/15 * * * *"
   }
 
