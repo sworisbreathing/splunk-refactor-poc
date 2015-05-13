@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Script to install splunk forward
+
+
+
+install_dir=$1
+[ -z "$install_dir" ] && echo "Error: No install dir defined" &&  exit 1
+
+splunkbin=$install_dir/bin/splunk
+USER=splunk
+SPLUNK_SERVER="tlpinfmgt03vth"
+
+change_password(){
+
+su $USER -c "$splunkbin edit user 'admin' -password 'splunk' -role Admin -auth admin:changeme"
+
+}
+
+deploy_set(){
+
+su $USER -c "$splunkbin set deploy-poll $SPLUNK_SERVER:8089 -auth admin:splunk"
+
+}
+
+forward_set(){
+
+su $USER -c "$splunkbin add forward-server $SPLUNK_SERVER:9997 -auth admin:splunk"
+
+}
+
+start_service(){
+
+action=$1
+/etc/init.d/splunk $action
+
+}
+
+check_service(){
+pids=`pidof splunkd`
+if [ ! -z $pids ];then
+        echo "Stopping Splunk"
+        start_service stop
+fi
+}
+
+
+if [ -d "$install_dir" ];then
+  if [ -f "$install_dir/bin/splunk" ] ;then
+
+     check_service
+     echo "Starting splunk install - run twice"
+     echo "$splunkbin enable boot-start -user $USER --accept-license --answer-yes --no-prompt"	
+     cmd=`$splunkbin enable boot-start -user $USER --accept-license --answer-yes --no-prompt`
+     chown -R $USER. $install_dir
+     cmd=`$splunkbin enable boot-start -user $USER --accept-license --answer-yes --no-prompt`
+     chown -R $USER. $install_dir
+     change_password
+     deploy_set
+     forward_set
+     start_service start
+  else
+    echo "check your installation"
+    exit 1
+  fi
+else
+  echo "$install_dir Not Found"
+  exit 1
+fi
+
