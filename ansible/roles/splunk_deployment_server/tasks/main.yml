@@ -7,14 +7,14 @@
     group={{ splunk_server.group.name }}
     mode="0755"
 
-- name: configure deployment server
-  sudo: yes
-  template: src=serverclass.conf
-    dest={{ splunk_server.install_dir }}/etc/system/local/serverclass.conf
-    owner={{ splunk_server.user.name }}
-    group={{ splunk_server.group.name }}
-    mode=0644
-  notify: restart splunk
+#- name: configure deployment server
+#  sudo: yes
+#  template: src=serverclass.conf
+#    dest={{ splunk_server.install_dir }}/etc/system/local/serverclass.conf
+#    owner={{ splunk_server.user.name }}
+#    group={{ splunk_server.group.name }}
+#    mode=0644
+#  notify: restart splunk
 
 - name: Ensure git repo dir exists
   sudo: yes
@@ -53,10 +53,8 @@
     dest={{ splunk_server.app_repo.install_path }}
     accept_hostkey=yes
   register: splunk_app_repo
-  notify: restart splunk
 
-- name: install splunk apps
+- name: reconfigure deployment server
   sudo: yes
-  sudo_user: "{{ splunk_server.user.name }}"
-  shell: "cp -R {{ splunk_server.app_repo.install_path }}/* {{ splunk_server.install_dir }}/etc/apps/"
+  command: "cp {{ splunk_server.app_repo.install_path }}/serverclass.conf {{ splunk_server.install_dir }}/etc/system/local/serverclass.conf"
   when: splunk_app_repo.changed == true
