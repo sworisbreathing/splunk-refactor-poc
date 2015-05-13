@@ -20,6 +20,7 @@
   shell: "if [ -e {{ splunk_forwarder.install_dir }}/bin/splunk ] ; then {{ splunk_forwarder.install_dir }}/bin/splunk version ; fi"
   sudo: yes
   sudo_user: "{{ splunk_forwarder.user.name }}"
+  always_run: true
   register: splunk_forwarder_installed_version
   changed_when: false
 
