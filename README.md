@@ -70,5 +70,5 @@ Then run:
     terraform apply
     terraform output ansible_inventory_rendered > ansible/ansible.inventory
     cd ansible
-    ansible-playbook --private-key=<path_to_private_key> playbook.yml
+    ansible-playbook --check --private-key=<path_to_private_key> playbook.yml
 ```
