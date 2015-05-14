@@ -35,7 +35,7 @@ reload_deployment_server() {
 }
 
 install_splunk_apps() {
-  cp -R $SPLUNK_REPO_APPS_DIR/* $SPLUNK_APP_DIR/
+  su $USER -c "cp -R $SPLUNK_REPO_APPS_DIR/* $SPLUNK_APP_DIR/"
 }
 
 restart_splunk() {
