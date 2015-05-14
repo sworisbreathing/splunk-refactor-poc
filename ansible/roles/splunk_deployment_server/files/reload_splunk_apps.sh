@@ -22,6 +22,10 @@ count_app_changes() {
     | grep -v SplunkForwarder \
     | grep -v SplunkLightForwarder \
     | grep -v user-prefs \
+    | grep -v framework \
+    | grep -v introspection_generator_addon \
+    | grep -v splunk_management_console \
+    | grep -v "Common subdirectories" \
     | grep -Ev "\.git" \
     | wc -l
 }
@@ -31,7 +35,7 @@ configure_deployment_server() {
 }
 
 reload_deployment_server() {
-  su $USER -c "$splunkbin/splunk reload deploy-server -auth admin:splunk"
+  su $USER -c "$splunkbin reload deploy-server -auth admin:splunk"
 }
 
 install_splunk_apps() {
@@ -53,8 +57,10 @@ RESTART_REQUIRED=$(count_app_changes)
 configure_deployment_server
 
 if [ $RESTART_REQUIRED -eq 0 ] ;then
+  echo "reloading deployment server"
   reload_deployment_server
 else
+  echo "restarting splunk"
   install_splunk_apps
   restart_splunk
 fi
