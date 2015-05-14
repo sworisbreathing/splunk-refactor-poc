@@ -56,5 +56,5 @@
 
 - name: reconfigure deployment server
   sudo: yes
-  command: "cp {{ splunk_server.app_repo.install_path }}/serverclass.conf {{ splunk_server.install_dir }}/etc/system/local/serverclass.conf"
+  script: roles/splunk_deployment_server/files/reload_splunk_apps.sh
   when: splunk_app_repo.changed == true
