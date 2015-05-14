@@ -16,6 +16,14 @@
 #    mode=0644
 #  notify: restart splunk
 
+- name: Ensure index dir exists
+  sudo: yes
+  file: path=/app/splunk-index
+    state=directory
+    owner={{ splunk_server.user.name }}
+    group={{ splunk_server.group.name }}
+    mode="0755"
+
 - name: Ensure git repo dir exists
   sudo: yes
   file: path={{ splunk_server.app_repo.parent_path }}
