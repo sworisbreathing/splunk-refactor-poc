@@ -4,4 +4,4 @@ splunk_server:
     branch: master
     parent_path: /app/git
     install_path: /app/git/splunk-deployment-apps
-    url: ssh://git@gitlab.services.ecetera.com.au/target/splunk-upgrade-poc.git
+    url: ssh://git@bitbucket.org:target_online/ocr.splunkapps.git
