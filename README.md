@@ -37,7 +37,7 @@ that we will probably need to blow away and recreate quite often, with versionin
 
 To get started:
 
-1. install terraform
+1. install terraform and ansible
 2. get your AWS access key and AWS secret key
 3. clone this repo
 4. create a file named `terraform.tfvars` in the root of this repository (don't worry... it's gitignored), with the following contents:
