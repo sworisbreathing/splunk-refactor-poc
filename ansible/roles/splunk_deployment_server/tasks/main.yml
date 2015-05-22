@@ -20,10 +20,29 @@
   sudo: yes
   apt: name=git state=present
 
+- name: Setup required folders for SSH
+  sudo: yes
+  file: path="/home/{{splunk_server.user.name}}/.ssh"
+    state=directory
+    owner={{ splunk_server.user.name }}
+    group={{ splunk_server.group.name }}
+    mode="0700"
+
+- name: Setup SSH deployment keys
+  sudo: yes
+  copy: src={{ item.src }}
+    dest={{ item.dest }}
+    owner={{ item.owner }}
+    group={{ item.group }}
+    mode={{ item.mode }}
+  with_items: splunk_server.ssh_files
+
 - name: Pull down Splunk apps
   sudo: yes
   sudo_user: "{{ splunk_server.user.name }}"
   git: repo={{ splunk_server.app_repo.url }}
     version={{ splunk_server.app_repo.branch }}
     dest={{ splunk_server.app_repo.install_path }}
+    accept_hostkey=yes
   notify: restart splunk
+

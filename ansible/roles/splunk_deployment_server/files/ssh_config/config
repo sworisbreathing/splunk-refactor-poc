@@ -1,0 +1,6 @@
+Host bitbucket
+  HostName bitbucket.org
+
+Host bitbucket.org
+  IdentityFile ~/.ssh/splunkapps_deploy.key
+
