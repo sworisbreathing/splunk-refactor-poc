@@ -4,4 +4,21 @@ splunk_server:
     branch: master
     parent_path: /app/git
     install_path: /app/git/splunk-deployment-apps
-    url: ssh://git@gitlab.services.ecetera.com.au/target/splunk-upgrade-poc.git
+    url: git@bitbucket.org:steveswor/ocr.splunkapps.git
+
+  ssh_files:
+    - src: ssh_config/splunkapps_deploy.key
+      dest: /home/splunk/.ssh/splunkapps_deploy.key
+      owner: splunk
+      group: splunk
+      mode: "0600"
+    - src: ssh_config/splunkapps_deploy.key.pub
+      dest: /home/splunk/.ssh/splunkapps_deploy.key.pub
+      owner: splunk
+      group: splunk
+      mode: "0644"
+    - src: ssh_config/config
+      dest: /home/splunk/.ssh/config
+      owner: splunk
+      group: splunk
+      mode: "0644"
