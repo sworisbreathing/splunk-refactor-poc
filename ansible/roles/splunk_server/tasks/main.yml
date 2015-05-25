@@ -34,6 +34,14 @@
     state=file
     mode=755
 
+- name: "Configure Splunk server name"
+  sudo: yes
+  lineinfile: state=present
+    dest="{{ splunk_server.install_dir }}/etc/system/local/server.conf"
+    regexp="serverName\s*=\s*.*"
+    line="serverName = {{ inventory_hostname_short }}"
+  notify: restart splunk
+
 - name: "Configure Receiving"
   sudo: yes
   template: src=inputs.conf

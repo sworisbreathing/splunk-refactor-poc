@@ -34,6 +34,23 @@
     state=file
     mode=755
 
+- name: "Configure Splunk server name"
+  sudo: yes
+  lineinfile: state=present
+    dest="{{ splunk_forwarder.install_dir }}/etc/system/local/server.conf"
+    regexp="serverName\s*=\s*.*"
+    line="serverName = {{ inventory_hostname_short }}"
+  notify: restart splunk forwarder
+
+- name: "Configure hostname for forwarding"
+  sudo: yes
+  template: src=inputs.conf
+    dest={{ splunk_forwarder.install_dir }}/etc/system/local
+    owner={{ splunk_forwarder.user.name }}
+    group={{ splunk_forwarder.group.name }}
+    mode=0644
+  notify: restart splunk forwarder
+
 - name: "Configure deployment client"
   sudo: yes
   template: src=deploymentclient.conf
