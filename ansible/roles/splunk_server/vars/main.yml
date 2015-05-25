@@ -17,3 +17,5 @@ splunk_server:
     comment: Splunk Service
     group: splunk
 
+  receiving_port: 9997
+

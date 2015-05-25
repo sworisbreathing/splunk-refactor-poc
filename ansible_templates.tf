@@ -7,6 +7,7 @@ resource "template_file" "ansible_inventory" {
     tldhybstg01vth = "${aws_instance.tldhybstg01vth.public_ip}"
     tldhybprd01pth = "${aws_instance.tldhybprd01pth.public_ip}"
     deployment_server_host = "${aws_instance.tlpinfmgt03vth.private_ip}"
+    indexer_host = "${aws_instance.tlpinfmgt03vth.private_ip}"
   }
 }
 output "ansible_inventory_rendered" {
