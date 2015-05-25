@@ -1,12 +1,12 @@
 [splunk_forwarders]
 
-tldhybqat01vth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybqat01vth} deployment_client_name=tldhybqat01vth
+tldhybqat01vth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybqat01vth}
 
-tldhybuat01vth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybuat01vth} deployment_client_name=tldhybuat01vth
+tldhybuat01vth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybuat01vth}
 
-tldhybstg01vth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybstg01vth} deployment_client_name=tldhybstg01vth
+tldhybstg01vth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybstg01vth}
 
-tldhybprd01pth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybprd01pth} deployment_client_name=tldhybprd01pth
+tldhybprd01pth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybprd01pth}
 
 
 [splunk_forwarders:vars]
