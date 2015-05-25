@@ -34,6 +34,15 @@
     state=file
     mode=755
 
+- name: "Configure Receiving"
+  sudo: yes
+  template: src=inputs.conf
+    dest={{ splunk_server.install_dir }}/etc/system/local
+    owner={{ splunk_server.user.name }}
+    group={{ splunk_server.group.name }}
+    mode="0644"
+  notify: restart splunk
+
 - name: "Start Splunk service"
   service: name=splunk state=started
   sudo: yes

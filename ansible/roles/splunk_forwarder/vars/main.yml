@@ -20,3 +20,6 @@ splunk_forwarder:
 
   deployment_server:
     port: 8089
+
+  indexer:
+    receive_port: 9997
