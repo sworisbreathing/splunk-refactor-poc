@@ -1,4 +1,12 @@
 ---
+- name: Ensure index dir exists
+  sudo: yes
+  file: path=/app/splunk-index
+    state=directory
+    owner={{ splunk_server.user.name }}
+    group={{ splunk_server.group.name }}
+    mode="0755"
+
 - name: configure deployment server
   sudo: yes
   template: src=serverclass.conf
@@ -44,5 +52,11 @@
     version={{ splunk_server.app_repo.branch }}
     dest={{ splunk_server.app_repo.install_path }}
     accept_hostkey=yes
+  register: splunk_app_repo
   notify: restart splunk
 
+- name: install splunk apps
+  sudo: yes
+  sudo_user: "{{ splunk_server.user.name }}"
+  shell: "cp -R {{ splunk_server.app_repo.install_path }}/* {{ splunk_server.install_dir }}/etc/apps/"
+  when: splunk_app_repo.changed == true
