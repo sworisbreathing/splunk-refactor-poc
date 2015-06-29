@@ -1,6 +1,6 @@
-Host bitbucket
-  HostName bitbucket.org
+Host gitlab
+  HostName gitlab.services.ecetera.com.au
 
-Host bitbucket.org
+Host gitlab.services.ecetera.com.au
   IdentityFile ~/.ssh/splunkapps_deploy.key
 
