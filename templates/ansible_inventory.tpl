@@ -1,12 +1,12 @@
 [splunk_forwarders]
 
-tldhybqat01vth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybqat01vth}
+splk_fwd_qat ansible_ssh_user=ubuntu ansible_ssh_host=${splk_fwd_qat}
 
-tldhybuat01vth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybuat01vth}
+splk_fwd_uat ansible_ssh_user=ubuntu ansible_ssh_host=${splk_fwd_uat}
 
-tldhybstg01vth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybstg01vth}
+splk_fwd_stg ansible_ssh_user=ubuntu ansible_ssh_host=${splk_fwd_stg}
 
-tldhybprd01pth ansible_ssh_user=ubuntu ansible_ssh_host=${tldhybprd01pth}
+splk_fwd_prd ansible_ssh_user=ubuntu ansible_ssh_host=${splk_fwd_prd}
 
 
 [splunk_forwarders:vars]
@@ -14,4 +14,4 @@ splunk_forwarder_deployment_server_host=${deployment_server_host}
 splunk_forwarder_indexer_host=${indexer_host}
 
 [splunk_servers]
-tlpinfmgt03vth ansible_ssh_user=ubuntu ansible_ssh_host=${tlpinfmgt03vth}
+splk_srv_standalone ansible_ssh_user=ubuntu ansible_ssh_host=${splk_srv_standalone}

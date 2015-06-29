@@ -1,5 +1,5 @@
 
-resource "aws_instance" "tldhybuat01vth" {
+resource "aws_instance" "splk_fwd_uat" {
   instance_type = "t1.micro"
   ami = "${lookup(var.aws_amis, var.aws_region)}"
   key_name = "${var.TF_VAR_key_name}"
@@ -14,9 +14,9 @@ resource "aws_instance" "tldhybuat01vth" {
   ]
 
   tags = {
-    client = "target"
+    client = "ecetera"
     notify = "steven.swor@ecetera.com.au"
-    Name = "tldhybuat01vth"
+    Name = "techtalk-splunk-aws-terraform-ansible-uat"
     "auto:stop" = "*/15 * * * *"
   }
 
