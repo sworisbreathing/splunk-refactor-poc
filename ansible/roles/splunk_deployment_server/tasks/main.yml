@@ -54,9 +54,12 @@
     accept_hostkey=yes
   register: splunk_app_repo
   notify: restart splunk
+  register: splunk_repo
 
-- name: install splunk apps
+- name: Install Splunk apps locally
   sudo: yes
   sudo_user: "{{ splunk_server.user.name }}"
   shell: "cp -R {{ splunk_server.app_repo.install_path }}/* {{ splunk_server.install_dir }}/etc/apps/"
-  when: splunk_app_repo.changed == true
+  when: splunk_repo.changed == true
+  notify: restart splunk
+
