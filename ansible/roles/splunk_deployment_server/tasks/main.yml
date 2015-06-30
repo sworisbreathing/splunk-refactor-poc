@@ -61,9 +61,9 @@
     dest={{ splunk_server.app_repo.install_path }}
     accept_hostkey=yes
     force=yes
-  register: splunk_app_repo
+  register: splunk_repo
 
 - name: reconfigure deployment server
   sudo: yes
   script: roles/splunk_deployment_server/files/reload_splunk_apps.sh
-  when: splunk_app_repo.changed == true
+  when: splunk_repo.changed == true
