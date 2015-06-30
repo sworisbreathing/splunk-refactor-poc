@@ -51,8 +51,9 @@
   git: repo={{ splunk_server.app_repo.url }}
     version={{ splunk_server.app_repo.branch }}
     dest={{ splunk_server.app_repo.install_path }}
+    force=yes
     accept_hostkey=yes
-  register: splunk_app_repo
+  register: splunk_repo
   notify: restart splunk
 
 - name: Install Splunk apps locally
