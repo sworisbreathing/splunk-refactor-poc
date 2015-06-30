@@ -52,9 +52,9 @@
     version={{ splunk_server.app_repo.branch }}
     dest={{ splunk_server.app_repo.install_path }}
     accept_hostkey=yes
+    force=yes
   register: splunk_repo
   notify: restart splunk
-  register: splunk_repo
 
 - name: Install Splunk apps locally
   sudo: yes
