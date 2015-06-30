@@ -18,7 +18,7 @@ resource "aws_instance" "splk_srv_standalone" {
     client = "ecetera"
     notify = "steven.swor@ecetera.com.au"
     Name = "techtalk-splunk-aws-terraform-ansible-standalone"
-    "auto:stop" = "*/15 * * * *"
+    "auto:stop" = "*/60 * * * *"
   }
 
 }

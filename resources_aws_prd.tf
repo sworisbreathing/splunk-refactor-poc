@@ -17,7 +17,7 @@ resource "aws_instance" "splk_fwd_prd" {
     client = "ecetera"
     notify = "steven.swor@ecetera.com.au"
     Name = "techtalk-splunk-aws-terraform-ansible-prd"
-    "auto:stop" = "*/15 * * * *"
+    "auto:stop" = "*/60 * * * *"
   }
 
 }
