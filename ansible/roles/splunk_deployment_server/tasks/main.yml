@@ -52,7 +52,7 @@
     version={{ splunk_server.app_repo.branch }}
     dest={{ splunk_server.app_repo.install_path }}
     accept_hostkey=yes
-  register: splunk_app_repo
+  register: splunk_repo
   notify: restart splunk
   register: splunk_repo
 
