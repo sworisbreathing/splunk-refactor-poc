@@ -59,8 +59,8 @@
   git: repo={{ splunk_server.app_repo.url }}
     version={{ splunk_server.app_repo.branch }}
     dest={{ splunk_server.app_repo.install_path }}
-    accept_hostkey=yes
     force=yes
+    accept_hostkey=yes
   register: splunk_repo
 
 - name: reconfigure deployment server
