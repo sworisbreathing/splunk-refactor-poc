@@ -10,8 +10,10 @@ resource "aws_instance" "splk_srv_standalone" {
   }
 
   security_groups = [
-    "SSH",
-    "SplunkWeb",
+    "ssh_inbound_public",
+    "outbound_public",
+    "splunk_inbound",
+    "splunk_web_inbound_public"
   ]
 
   tags = {

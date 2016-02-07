@@ -1,0 +1,107 @@
+resource "aws_security_group" "ssh_inbound_public" {
+  name = "ssh_inbound_public"
+  description = "Allow inbound SSH traffic"
+
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "ssh_inbound_public"
+  }
+}
+
+resource "aws_security_group" "outbound_public" {
+  name = "outbound_public"
+  description = "Allow outbound traffic"
+
+  egress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  
+  egress {
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 443
+    to_port = 443
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "outbound_public"
+  }
+}
+
+resource "aws_security_group" "splunk_web_inbound_public" {
+  name = "splunk_web_inbound_public"
+  description = "Allow inbound traffic to Splunk web port"
+
+  ingress {
+    from_port = 8000
+    to_port = 8000
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "splunk_web_inbound_public"
+  }
+}
+
+resource "aws_security_group" "splunk_outbound" {
+  name = "splunk_outbound"
+  description = "Allow outbound Splunk traffic"
+  
+  egress {
+    from_port = 8089
+    to_port = 8089
+    protocol = "tcp"
+    security_groups = ["splunk_inbound"]
+  }
+
+  egress {
+    from_port = 9997
+    to_port = 9997
+    protocol = "tcp"
+    security_groups = ["splunk_inbound"]
+  }
+
+  tags {
+    Name = "splunk_outbound"
+  }
+}
+
+resource "aws_security_group" "splunk_inbound" {
+  name = "splunk_inbound"
+  description = "Allow inbound Splunk traffic"
+  
+  ingress {
+    from_port = 8089
+    to_port = 8089
+    protocol = "tcp"
+    security_groups = ["splunk_outbound"]
+  }
+
+  ingress {
+    from_port = 9997
+    to_port = 9997
+    protocol = "tcp"
+    security_groups = ["splunk_outbound"]
+  }
+
+  tags {
+    Name = "splunk_inbound"
+  }
+}
