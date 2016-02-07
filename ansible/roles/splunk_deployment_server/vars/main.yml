@@ -4,7 +4,7 @@ splunk_server:
     branch: old-deployment-strategy
     parent_path: /app/git
     install_path: /app/git/splunk-deployment-apps
-    url: git@gitlab.services.ecetera.com.au:techtalks/techtalk-test-aws-terraform-ansible-splunkapps.git
+    url: git@github.com:sworisbreathing/techtalk-test-aws-terraform-ansible-splunkapps.git
 
   ssh_files:
     - src: ssh_config/splunkapps_deploy.key
