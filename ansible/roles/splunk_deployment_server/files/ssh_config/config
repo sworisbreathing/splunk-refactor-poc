@@ -1,6 +1,6 @@
 Host gitlab
-  HostName gitlab.services.ecetera.com.au
+  HostName github.com
 
-Host gitlab.services.ecetera.com.au
+Host github.com
   IdentityFile ~/.ssh/splunkapps_deploy.key
 
