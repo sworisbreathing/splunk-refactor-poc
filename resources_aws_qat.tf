@@ -10,14 +10,13 @@ resource "aws_instance" "splk_fwd_qat" {
   }
 
   security_groups = [
-    "SSH"
+    "ssh_inbound_public",
+    "splunk_outbound",
+    "outbound_public"
   ]
 
   tags = {
-    client = "ecetera"
-    notify = "steven.swor@ecetera.com.au"
     Name = "techtalk-splunk-aws-terraform-ansible-qat"
-    "auto:stop" = "*/60 * * * *"
   }
 
 }
