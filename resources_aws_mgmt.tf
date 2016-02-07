@@ -11,14 +11,11 @@ resource "aws_instance" "splk_srv_standalone" {
 
   security_groups = [
     "SSH",
-    "Splunk",
+    "SplunkWeb",
   ]
 
   tags = {
-    client = "ecetera"
-    notify = "steven.swor@ecetera.com.au"
     Name = "techtalk-splunk-aws-terraform-ansible-standalone"
-    "auto:stop" = "*/60 * * * *"
   }
 
 }
